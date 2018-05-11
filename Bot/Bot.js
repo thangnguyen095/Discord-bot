@@ -4,8 +4,7 @@ function Bot(client, config){
     var prefix = config.prefix;
 
     Client.login(config.token).then(()=>{}).catch(e => {
-        console.log("Cannot login!");
-        console.log(e);
+        console.log("Cannot login! Please check your token");
     });
 
     Client.on('ready', function(){
@@ -28,7 +27,7 @@ function Bot(client, config){
         commands.forEach(handler => {
             if(handler.command.toLowerCase() == command){
                 try{
-                    handler.execute(mes);
+                    handler.execute(this, mes);
                 }catch(e){
                     console.log('Error occurs when executing command: ' + handler.command);
                 }
@@ -36,12 +35,8 @@ function Bot(client, config){
         });
     }
 
-    function attachCommand(command){
+    this.attachCommand = function(command){
         commands.push(command);
-    }
-
-    return {
-        attachCommand: attachCommand
     }
 }
 

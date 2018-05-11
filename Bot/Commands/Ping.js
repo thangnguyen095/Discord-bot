@@ -1,3 +1,3 @@
 var CommandHandler = require('./CommandHandler');
 
-module.exports = new CommandHandler('ping', (mes) => {mes.channel.send('pong')});
+module.exports = new CommandHandler('ping', (Bot, mes) => {mes.channel.send('pong')});
