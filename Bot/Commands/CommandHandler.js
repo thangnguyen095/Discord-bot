@@ -1,11 +1,11 @@
 function CommandHandler(command, handler){
-    if(!command || !fn){
+    if(!command || !handler){
         throw "Command and handler cannot be null";
     }
 
     return {
         command: command,
-        execute: fn
+        execute: handler
     }
 }
 
