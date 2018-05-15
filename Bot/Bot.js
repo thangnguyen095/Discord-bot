@@ -23,11 +23,12 @@ function Bot(client, config){
         }
 
         var command = content.splice(prefix.length).trim().split(/\b+/g).shift().toLowerCase();
+        var msg = content.splice(prefix.length + command.length).trim();
 
         commands.forEach(handler => {
             if(handler.command.toLowerCase() == command){
                 try{
-                    handler.execute(this, mes);
+                    handler.execute(this, msg, mes);
                 }catch(e){
                     console.log('Error occurs when executing command: ' + handler.command);
                 }
