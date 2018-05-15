@@ -22,8 +22,8 @@ function Bot(client, config){
             return;
         }
 
-        var command = content.splice(prefix.length).trim().split(/\b+/g).shift().toLowerCase();
-        var msg = content.splice(prefix.length + command.length).trim();
+        var command = content.slice(prefix.length).trim().split(/(?:\s|\n)+/g).shift().toLowerCase();
+        var msg = content.slice(prefix.length + command.length).trim();
 
         commands.forEach(handler => {
             if(handler.command.toLowerCase() == command){
