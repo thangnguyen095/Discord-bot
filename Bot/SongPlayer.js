@@ -12,6 +12,10 @@ function SongPlayer(vcc){
         return songs.length - 1; // return song index
     }
 
+    this.listSong = function(){
+        return this.song;
+    }
+
     this.play = function play(songIndex){
         var index = songIndex || 0;
         if(!songs[index]){

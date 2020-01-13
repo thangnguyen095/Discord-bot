@@ -5,12 +5,23 @@ function Bot(client, config){
     var commands = [];
     var prefix = config.prefix;
     var guilds = new Object();
+    var commandsHelp = {
+        color: 3447003,
+        author: {},
+        title: "Help command",
+        description: "This is a show all command support",
+        fields: []
+    }
 
     Client.login(config.token).then(()=>{}).catch(e => {
         console.log("Cannot login! Please check your token");
     });
 
     Client.on('ready', function(){
+        commandsHelp.author = {
+            name: client.user.username,
+            icon_url: client.user.avatarURL
+        }
         console.log('The Bot is ready');
     });
 
@@ -27,25 +38,42 @@ function Bot(client, config){
 
         var command = content.slice(prefix.length).trim().split(/(?:\s|\n)+/g).shift().toLowerCase();
         var msg = content.slice(prefix.length + command.length).trim();
-
-        commands.forEach(handler => {
-            if(handler.command.toLowerCase() == command){
-                try{
-                    handler.execute(functions, msg, mes);
-                }catch(e){
-                    console.log('Error occurs when executing command: ' + handler.command);
-                    console.log(e);
+        if (command == "help"){
+            helpCommand(mes)
+        }else{
+            commands.forEach(handler => {
+                if(handler.command.toLowerCase() == command){
+                    try{
+                        handler.execute(functions, msg, mes);
+                    }catch(e){
+                        console.log('Error occurs when executing command: ' + handler.command);
+                        console.log(e);
+                    }
                 }
-            }
-        });
+            });
+        }
+    }
+
+    async function helpCommand(mes){
+        try{
+            await mes.channel.send({embed: commandsHelp});
+        }catch(e){
+            console.log('Error occurs when executing command: help ');
+            console.log(e);
+        }
     }
 
     this.attachCommand = function(command){
+        commandsHelp.fields.push({
+            name: command.command.toLowerCase(),
+            value: command.describe
+        });
         commands.push(command);
     }
 
     // these functions will be pass down to command handlers in order for them to access some of the boss functions
     var functions = {
+        client: Client,
         joinVC: function joinVC(vc){
             var guildID = vc.guild.id;
             if(!guilds[guildID]){
