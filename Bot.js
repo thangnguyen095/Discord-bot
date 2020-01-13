@@ -115,7 +115,7 @@ function Bot(client, config){
                     reject();
                 }
             })
-        }
+        },
     }
 }
 

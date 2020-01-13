@@ -62,3 +62,4 @@ typings/
 
 # Vagrant
 .vagrant
+botconfig.json
