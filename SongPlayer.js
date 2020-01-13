@@ -7,7 +7,7 @@ function SongPlayer(vcc){
     this.addSong = function addSong(song){
         songs.push(song);
         if(!playing){
-            this.play(guild);
+            this.play();
         }
         return songs.length - 1; // return song index
     }
