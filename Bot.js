@@ -12,8 +12,8 @@ function Bot(client, config){
         description: "This is a show all command support",
         fields: []
     }
-
     Client.login(config.token).then(()=>{}).catch(e => {
+        console.log(e);
         console.log("Cannot login! Please check your token");
     });
 
@@ -37,14 +37,14 @@ function Bot(client, config){
         }
 
         var command = content.slice(prefix.length).trim().split(/(?:\s|\n)+/g).shift().toLowerCase();
-        var msg = content.slice(prefix.length + command.length).trim();
+        var content = content.slice(prefix.length + command.length).trim();
         if (command == "help"){
             helpCommand(mes)
         }else{
             commands.forEach(handler => {
                 if(handler.command.toLowerCase() == command){
                     try{
-                        handler.execute(functions, msg, mes);
+                        handler.execute(functions, content, mes);
                     }catch(e){
                         console.log('Error occurs when executing command: ' + handler.command);
                         console.log(e);
@@ -73,7 +73,6 @@ function Bot(client, config){
 
     // these functions will be pass down to command handlers in order for them to access some of the boss functions
     var functions = {
-        client: Client,
         joinVC: function joinVC(vc){
             var guildID = vc.guild.id;
             if(!guilds[guildID]){
@@ -99,14 +98,23 @@ function Bot(client, config){
                 reject();
             });
         },
-        play: function play(guild, song){
+        addSong: function addSong(guild, song){
             return new Promise((resolve, reject) => {
                 try{
-                    resolve(guilds[guildID].songPlayer.addSong(song));
+                    resolve(guilds[guild.id].songPlayer.addSong(song));
                 }catch(e){
                     reject();
                 }
             });
+        },
+        playSong: function playSong(guild, index){
+            return new Promise((resolve, reject) => {
+                try{
+                    resolve(guilds[guild.id].songPlayer.play(index));
+                }catch(e){
+                    reject();
+                }
+            })
         }
     }
 }

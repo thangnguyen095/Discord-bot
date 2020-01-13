@@ -9,12 +9,16 @@ function SongPlayer(vcc){
         if(!playing){
             this.play(guild);
         }
-
         return songs.length - 1; // return song index
     }
 
     this.listSong = function listSong(page=1){
-        return this.songs.slice((page-1)*pageLen, (page-1)*pageLen+10);
+        var pageSongs = this.songs.slice((page-1)*pageLen, (page-1)*pageLen+10);
+        return pageSongs.map( (s, i) => ({
+            index: i + 1 + (page-1) * pageLen,
+            url: s.url,
+            username: s.user,
+        }));
     }
 
     this.play = function play(songIndex){
@@ -46,7 +50,8 @@ function SongPlayer(vcc){
         return {
             end: dispatcher.end,
             pause: dispatcher.pause,
-            resume: dispatcher.resume
+            resume: dispatcher.resume,
+            next: dispatcher.end,
         }
     }
 }
