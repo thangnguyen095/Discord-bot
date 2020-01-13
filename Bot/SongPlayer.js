@@ -2,6 +2,7 @@ function SongPlayer(vcc){
     var songs = [];
     var playing = false;
     var player = null;
+    var pageLen = 10;
 
     this.addSong = function addSong(song){
         songs.push(song);
@@ -12,8 +13,8 @@ function SongPlayer(vcc){
         return songs.length - 1; // return song index
     }
 
-    this.listSong = function(){
-        return this.song;
+    this.listSong = function listSong(page=1){
+        return this.songs.slice((page-1)*pageLen, (page-1)*pageLen+10);
     }
 
     this.play = function play(songIndex){
