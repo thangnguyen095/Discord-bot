@@ -4,7 +4,7 @@ var ytdl = require("ytdl-core");
 
 class YoutubeStreamHandler extends MusicStreamHander {
     getStream(){
-        console.log(this.url);
+        console.log("get stream url: ", this.url);
         return ytdl(this.url, {filter: "audioonly"});
     }
 }
