@@ -6,7 +6,7 @@ var JoinVC = require('./Commands/JoinVC');
 var LeaveVC = require('./Commands/LeaveVC');
 var PlayYoutube = require("./Commands/youtubeMusic");
 var DeleteMessage = require("./Commands/DeleteMessageInChannel");
-var config = require('./botconfig.json')
+var config = require('./configbot/botconfig.json')
 
 var bot = new Bot(Client, config);
 
