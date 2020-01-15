@@ -2,14 +2,23 @@ function SongPlayer(vcc){
     var songs = [];
     var playing = false;
     var player = null;
+    var pageLen = 10;
 
     this.addSong = function addSong(song){
         songs.push(song);
         if(!playing){
-            this.play(guild);
+            this.play();
         }
-
         return songs.length - 1; // return song index
+    }
+
+    this.listSong = function listSong(page=1){
+        var pageSongs = this.songs.slice((page-1)*pageLen, (page-1)*pageLen+10);
+        return pageSongs.map( (s, i) => ({
+            index: i + 1 + (page-1) * pageLen,
+            url: s.url,
+            username: s.user,
+        }));
     }
 
     this.play = function play(songIndex){
@@ -41,7 +50,7 @@ function SongPlayer(vcc){
         return {
             end: dispatcher.end,
             pause: dispatcher.pause,
-            resume: dispatcher.resume
+            resume: dispatcher.resume,
         }
     }
 }

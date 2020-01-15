@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discord-music-bot
+spec:
+  selector:
+    matchLabels:
+      app: discord-music-bot
+  template:
+    metadata:
+      labels:
+        app: discord-music-bot
+    spec:
+      containers:
+      - name: discord-music-bot
+        image: diepthuyhan/discordmusic:dev
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: configbot
+          mountPath: "/usr/src/app/configbot"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+      volumes:
+        - name: configbot
+          secret:
+            secretName: discord-bot-secret
