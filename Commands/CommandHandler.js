@@ -7,7 +7,7 @@ module.exports = class CommandHandler {
         this.describe = describe;
     }
 
-    handler(Bot, content, mes){
+    execute(Bot, content){
 
     }
 }

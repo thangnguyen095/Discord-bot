@@ -5,8 +5,8 @@ class JoinVCCommand extends CommandHandler {
         super('join', 'Join user\'s current voice channel');
     }
 
-    handler(Bot, msg, mes){
-        Bot.joinVC(mes.member.voiceChannel);
+    execute(Bot, msg){
+        Bot.joinVC();
     }
 }
 

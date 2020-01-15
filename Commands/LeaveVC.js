@@ -5,8 +5,8 @@ class LeaveVCCommand extends CommandHandler {
         super('leave', 'Leave current voice channel');
     }
 
-    handler(Bot, msg, mes){
-        Bot.leaveVC(mes.guild);
+    execute(Bot, msg){
+        Bot.leaveVC();
     }
 }
 

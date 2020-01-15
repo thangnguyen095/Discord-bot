@@ -5,8 +5,8 @@ class PingCommand extends CommandHandler {
         super('ping', 'Ping Pong');
     }
 
-    handler(Bot, msg, mes){
-        mes.channel.send('Pong');
+    execute(Bot, msg){
+        Bot.sendMessage('Pong')
     }
 }
 
