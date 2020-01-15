@@ -1,13 +1,13 @@
-function CommandHandler(command, handler, describe="_"){
-    if(!command || !handler){
-        throw "Command and handler cannot be null";
+module.exports = class CommandHandler {
+    constructor(command, describe = "_"){
+        if(!command){
+            throw "Command cannot be null";
+        }
+        this.command = command;
+        this.describe = describe;
     }
 
-    return {
-        command: command,
-        execute: handler,
-        describe: describe,
+    handler(Bot, content, mes){
+
     }
 }
-
-module.exports = CommandHandler;

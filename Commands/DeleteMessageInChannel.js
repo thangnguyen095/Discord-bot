@@ -1,8 +1,11 @@
-var CommandHandler = require('./CommandHandler');
+const CommandHandler = require('./CommandHandler');
 
-module.exports = new CommandHandler(
-    'purge',
-    async (Bot, content, mes) => {
+class DeleteMessageCommand extends CommandHandler {
+    constructor(){
+        super('purge', 'Delete n(integer) message in channel');
+    }
+
+    async handler(Bot, content, mes){
         let totalMessageDelete = parseInt(content);
         if (Number.isInteger(totalMessageDelete)){
             let channel = mes.channel;
@@ -19,6 +22,7 @@ module.exports = new CommandHandler(
             mes.channel.send("purge <numbe>");
         }
         
-    },
-    "Delete n(integer) message in channel, no exclude"
-);
+    }
+}
+
+module.exports = DeleteMessageCommand;

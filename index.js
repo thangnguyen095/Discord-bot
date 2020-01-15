@@ -1,17 +1,17 @@
-var Discord = require('discord.js');
-var Client = new Discord.Client();
-var Bot = require('./Bot');
-var Ping = require('./Commands/Ping');
-var JoinVC = require('./Commands/JoinVC');
-var LeaveVC = require('./Commands/LeaveVC');
-var PlayYoutube = require("./Commands/youtubeMusic");
-var DeleteMessage = require("./Commands/DeleteMessageInChannel");
-var config = require('./configbot/botconfig.json')
+const Discord = require('discord.js');
+const Bot = require('./Bot');
+const PingCommand = require('./Commands/Ping');
+const JoinVCCommand = require('./Commands/JoinVC');
+const LeaveVCCommand = require('./Commands/LeaveVC');
+const PlayYoutubeCommand = require('./Commands/youtubeMusic');
 
-var bot = new Bot(Client, config);
+const client = new Discord.Client();
+const config = require('./configbot/botconfig.json');
 
-bot.attachCommand(Ping);
-bot.attachCommand(JoinVC);
-bot.attachCommand(LeaveVC);
-bot.attachCommand(PlayYoutube);
-bot.attachCommand(DeleteMessage);
+const bot = new Bot(client, config);
+
+bot.attachCommand(new PingCommand());
+bot.attachCommand(new JoinVCCommand());
+bot.attachCommand(new LeaveVCCommand());
+bot.attachCommand(new PlayYoutubeCommand());
+

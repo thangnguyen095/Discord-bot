@@ -1,3 +1,13 @@
-var CommandHandler = require('./CommandHandler');
+const CommandHandler = require('./CommandHandler');
 
-module.exports = new CommandHandler('ping', (Bot, msg, mes) => {mes.channel.send('pong')});
+class PingCommand extends CommandHandler {
+    constructor(){
+        super('ping', 'Ping Pong');
+    }
+
+    handler(Bot, msg, mes){
+        mes.channel.send('Pong');
+    }
+}
+
+module.exports = PingCommand;

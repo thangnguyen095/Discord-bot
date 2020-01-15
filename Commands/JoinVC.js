@@ -1,3 +1,13 @@
-var CommandHandler = require('./CommandHandler');
+const CommandHandler = require('./CommandHandler');
 
-module.exports = new CommandHandler('join', (Bot, msg, mes) => {Bot.joinVC(mes.member.voiceChannel);});
+class JoinVCCommand extends CommandHandler {
+    constructor(){
+        super('join', 'Join user\'s current voice channel');
+    }
+
+    handler(Bot, msg, mes){
+        Bot.joinVC(mes.member.voiceChannel);
+    }
+}
+
+module.exports = JoinVCCommand;

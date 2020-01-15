@@ -1,3 +1,13 @@
-var CommandHandler = require('./CommandHandler');
+const CommandHandler = require('./CommandHandler');
 
-module.exports = new CommandHandler('leave', (Bot, msg, mes) => {Bot.leaveVC(mes.guild)});
+class LeaveVCCommand extends CommandHandler {
+    constructor(){
+        super('leave', 'Leave current voice channel');
+    }
+
+    handler(Bot, msg, mes){
+        Bot.leaveVC(mes.guild);
+    }
+}
+
+module.exports = LeaveVCCommand;

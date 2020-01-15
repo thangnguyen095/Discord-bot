@@ -1,6 +1,5 @@
-var MusicStreamHander = require("./musicStreamHander");
-var ytdl = require("ytdl-core");
-
+const MusicStreamHander = require('./musicStreamHander');
+const ytdl = require('ytdl-core');
 
 class YoutubeStreamHandler extends MusicStreamHander {
     getStream(){

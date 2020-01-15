@@ -1,12 +1,20 @@
-var YtStreamHandler = require("../musicStream/youtubeStreamHandler");
-var CommandHandler = require('./CommandHandler');
+const CommandHandler = require('./CommandHandler');
+const YtStreamHandler = require('../musicStream/youtubeStreamHandler');
 
-module.exports = new CommandHandler('yt', (Bot, content, mes) => {
-    var regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})?$/
-    if(regex.test(content)){
-        const stream = new YtStreamHandler(content, mes.author.username);
-        Bot.addSong(mes.guild, stream);
-    }else{
-        mes.channel.send("Error url")
+class YoutubeStreamCommand extends CommandHandler {
+    constructor(){
+        super('yt', 'Play youtube audio from url, single only');
     }
-}, "Play youtube url, signle song only");
+
+    handler(Bot, content, mes){
+        var regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})?$/
+        if(regex.test(content)){
+            const stream = new YtStreamHandler(content, mes.author.username);
+            Bot.addSong(mes.guild, stream);
+        }else{
+            mes.channel.send("Error url")
+        }
+    }
+}
+
+module.exports = YoutubeStreamCommand;
